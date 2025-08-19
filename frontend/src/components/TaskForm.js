@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Updated API URL to point to your Render backend
-const API_URL = process.env.REACT_APP_API_URL || 'https://task-backend-3s37.onrender.com';
+const API_URL = 'https://task-backend-3s37.onrender.com';
 
 const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditing = false }) => {
   const [formData, setFormData] = useState({
@@ -36,54 +35,23 @@ const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditi
     setError('');
 
     try {
-      // Configure axios with timeout and better error handling
-      const config = {
-        headers: { 
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        timeout: 10000 // 10 second timeout
-      };
-
       if (isEditing) {
         const response = await axios.put(
           `${API_URL}/api/tasks/${task._id}`,
           formData,
-          config
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         onTaskUpdated(response.data.task);
       } else {
         const response = await axios.post(
           `${API_URL}/api/tasks`,
           formData,
-          config
+          { headers: { Authorization: `Bearer ${token}` } }
         );
         onTaskCreated(response.data.task);
       }
-      
-      // Reset form after successful submission
-      if (!isEditing) {
-        setFormData({
-          title: '',
-          description: '',
-          status: 'pending'
-        });
-      }
     } catch (err) {
-      console.error('API Error:', err);
-      
-      // Better error handling
-      if (err.code === 'ECONNREFUSED' || err.code === 'NETWORK_ERROR') {
-        setError('Unable to connect to server. Please check your internet connection.');
-      } else if (err.response?.status === 401) {
-        setError('Authentication failed. Please login again.');
-      } else if (err.response?.status === 403) {
-        setError('You do not have permission to perform this action.');
-      } else if (err.response?.status >= 500) {
-        setError('Server error. Please try again later.');
-      } else {
-        setError(err.response?.data?.message || 'An error occurred while saving the task.');
-      }
+      setError(err.response?.data?.message || 'An error occurred');
     } finally {
       setLoading(false);
     }
@@ -110,7 +78,6 @@ const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditi
               onChange={handleChange}
               required
               placeholder="Enter task title"
-              disabled={loading}
             />
           </div>
 
@@ -124,7 +91,6 @@ const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditi
               required
               placeholder="Enter task description"
               rows="4"
-              disabled={loading}
             />
           </div>
 
@@ -135,7 +101,6 @@ const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditi
               name="status"
               value={formData.status}
               onChange={handleChange}
-              disabled={loading}
             >
               <option value="pending">Pending</option>
               <option value="in-progress">In Progress</option>

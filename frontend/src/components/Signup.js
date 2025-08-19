@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://task-backend-3s37.onrender.com';
+const API_URL = 'https://task-backend-3s37.onrender.com';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
