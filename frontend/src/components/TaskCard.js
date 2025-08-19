@@ -29,7 +29,7 @@ const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `${API_URL}/api/tasks/${task._id}`,
+        `${import.meta.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
         { ...task, status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
