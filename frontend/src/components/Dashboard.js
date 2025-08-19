@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import TaskForm from './TaskForm';
 import TaskCard from './TaskCard';
 
-// const API_URL = 'https://task-backend-3s37.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const Dashboard = () => {
   const { user, token, logout } = useAuth();
@@ -19,7 +19,7 @@ const Dashboard = () => {
 
   const fetchTasks = async (page = 1, status = filter) => {
     try {
-      const response = await axios.get(`${import.meta.env.REACT_APP_API_URL}/api/tasks`, {
+      const response = await axios.get(`${API_URL}/api/tasks`, {
         params: { page, status },
         headers: { Authorization: `Bearer ${token}` }
       });

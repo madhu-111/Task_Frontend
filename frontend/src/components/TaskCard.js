@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-// const API_URL = 'https://task-backend-3s37.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
 const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
   const [loading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `${import.meta.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
+        `${API_URL}/api/tasks/${task._id}`,
         { ...task, status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -44,7 +44,7 @@ const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${import.meta.env.REACT_APP_API_URL}/api/tasks/${task._id}`, {
+      await axios.delete(`${API_URL}/api/tasks/${task._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       onDelete(task._id);
