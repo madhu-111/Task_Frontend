@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const API_URL = 'https://task-backend-3s37.onrender.com';
+// const API_URL ='https://task-backend-3s37.onrender.com';
 
 const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditing = false }) => {
   const [formData, setFormData] = useState({
@@ -37,14 +37,14 @@ const TaskForm = ({ task, onTaskCreated, onTaskUpdated, onCancel, token, isEditi
     try {
       if (isEditing) {
         const response = await axios.put(
-          `${API_URL}/api/tasks/${task._id}`,
+          `${import.meta.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );
         onTaskUpdated(response.data.task);
       } else {
         const response = await axios.post(
-          `${API_URL}/api/tasks`,
+          `${import.meta.env.REACT_APP_API_URL}/api/tasks`,
           formData,
           { headers: { Authorization: `Bearer ${token}` } }
         );

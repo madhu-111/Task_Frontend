@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const API_URL = 'https://task-backend-3s37.onrender.com';
+// const API_URL = 'https://task-backend-3s37.onrender.com';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/signup`, {
+      const response = await axios.post(`${import.meta.env.REACT_APP_API_URL}/api/auth/signup`, {
         username: formData.username,
         email: formData.email,
         password: formData.password

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_URL = 'https://task-backend-3s37.onrender.com';
+// const API_URL = 'https://task-backend-3s37.onrender.com';
 
 const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
   const [loading, setLoading] = useState(false);
@@ -44,7 +44,7 @@ const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`${API_URL}/api/tasks/${task._id}`, {
+      await axios.delete(`${import.meta.env.REACT_APP_API_URL}/api/tasks/${task._id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       onDelete(task._id);
