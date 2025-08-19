@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'https://task-backend-3s37.onrender.com';
 
 const TaskCard = ({ task, onEdit, onDelete, onUpdate, token }) => {
   const [loading, setLoading] = useState(false);
