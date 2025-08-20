@@ -2,6 +2,9 @@
 
 A beautiful, full-featured task management application built with the MERN stack (MongoDB, Express.js, React.js, Node.js). Features include user authentication, CRUD operations, task filtering, pagination, and a modern UI/UX design.
 
+## 🌐 Live Demo
+🔗 [Visit MERN Task Manager](https://laravel-self-theta.vercel.app)
+
 ## ✨ Features
 
 ### 🔐 Authentication
